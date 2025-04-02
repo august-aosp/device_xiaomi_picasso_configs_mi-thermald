@@ -1,0 +1,3 @@
+[submodule "mi-thermal-crypt"]
+	path = mi-thermal-crypt
+	url = https://github.com/adithya2306/mi-thermal-crypt.git
