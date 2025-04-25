@@ -3,6 +3,7 @@
 OUTPUT_DIR=""
 INPUT_DIR=""
 MODE=""
+CLEAN_OUTPUT_DIR=false
 
 # Function to display usage
 usage() {
@@ -11,6 +12,7 @@ usage() {
     echo "  -i, --input    Specify the input directory containing configs"
     echo "  -D             Decrypt mode"
     echo "  -E             Encrypt mode"
+    echo "  -c, --clean   Clean output directory before processing"
     exit 1
 }
 
@@ -30,6 +32,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -E)
             MODE="encrypt"
+            shift
+            ;;
+        -c|--clean)
+            CLEAN_OUTPUT_DIR=true
             shift
             ;;
         *)
@@ -64,6 +70,11 @@ fi
 if [[ ! -d "$OUTPUT_DIR" ]]; then
     echo "Creating output directory: $OUTPUT_DIR"
     mkdir -p "$OUTPUT_DIR"
+fi
+
+if [[ "$CLEAN_OUTPUT_DIR" == true ]]; then
+    echo "Cleaning output directory: $OUTPUT_DIR"
+    rm -rf "$OUTPUT_DIR"/*
 fi
 
 if [[ "$MODE" == "decrypt" ]]; then
